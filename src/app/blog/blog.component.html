@@ -1,0 +1,49 @@
+<nav class="navbar bg-body-tertiary">
+    <div class="container">
+        <a class="navbar-brand">
+            <img src="https://www.uotavalo.edu.ec/wp-content/uploads/2022/01/LOGO-UNIR.png" alt="Unir Logo"
+                height="50" />
+        </a>
+    </div>
+</nav>
+
+<form>
+    <div class="input-group p-2">
+        <input type="text" name="title" class="form-control" placeholder="Ingrese el título de la noticia" [(ngModel)]="newNotice.title" (change)="onChangeTitle($event)"/>
+    </div>
+    
+    <div class="input-group p-2">
+        <input type="text" name="urlImage" class="form-control" placeholder="Ingrese la url de la imagen" title="utlImage" [(ngModel)]="newNotice.urlImage" (change)="onChangeUrlImage($event)" />
+        <span class="input-group-text">Fecha de la noticia</span>
+        <input type="date" name="date" class="form-control" (change)="onChangeDate($event)"/>
+    </div>
+
+    <div class="input-group p-2">
+        <textarea class="form-control" name="notice" aria-label="Noticia" placeholder="Ingrese la noticia" [(ngModel)]="newNotice.notice" (change)="onChangeNotice($event)"></textarea>
+    </div>
+
+    <div class="input-group p-2"></div>
+
+    <div class="input-group p-2">
+        <a href="#footer" class="btn btn-primary" type="button" (click)="onPostNew()">
+            Postear
+        </a>
+    </div>
+</form>
+
+<hr />
+<div *ngIf="listNews.length === 0">
+    <p>No hay disponibles noticias</p>
+</div>
+
+<div *ngFor="let itemNew of listNews" class="p-2">
+    <div class="card pt-5">
+        <img src="{{ itemNew.urlImage }}" class="card-img-top d-block w-100" alt="{{ itemNew.title }}" />
+        <div class="card-body">
+            <h5 class="card-title">{{ itemNew.title }}</h5>
+            <p *ngIf="itemNew.date" class="fs-6">{{ itemNew.date.toLocaleDateString(undefined, { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) }}</p>
+            <p class="card-text">{{ itemNew.notice }}</p>
+        </div>
+    </div>
+</div>
+<div id="footer"></div>
